@@ -1,0 +1,62 @@
+{
+    "name": "michael-rubel/laravel-package-template",
+    "description": "It is an example template for Laravel packages. Fill or change it the way you like.",
+    "keywords": [
+        "laravel",
+        "laravel-package"
+    ],
+    "homepage": "https://github.com/michael-rubel/laravel-package-template",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Rubél",
+            "email": "contact@observer.name",
+            "role": "Author"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/contracts": "^9.0|^10.0",
+        "spatie/laravel-package-tools": "^1.14"
+    },
+    "require-dev": {
+        "infection/infection": "^0.26.0",
+        "brianium/paratest": "^6.3",
+        "laravel/pint": "^1.2",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^6.0|^7.0",
+        "nunomaduro/larastan": "^2.0",
+        "orchestra/testbench": "^7.4|^8.0",
+        "phpunit/phpunit": "^9.5|^10.1",
+        "roave/backward-compatibility-check": "^7.0|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MichaelRubel\\PackageTemplate\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MichaelRubel\\PackageTemplate\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/testbench package:test --no-coverage",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+              "MichaelRubel\\PackageTemplate\\TemplateServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
