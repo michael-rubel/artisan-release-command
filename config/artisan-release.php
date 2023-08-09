@@ -4,13 +4,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Package Configuration
+    | Artisan Command Configuration
     |--------------------------------------------------------------------------
-    |
-    | Your config here.
-    |
     */
 
-    'key' => 'value',
+    'branch' => 'main',
+    'version_class' => 'App\Service',
+    'version_file'  => app_path('Service.php'),
 
 ];

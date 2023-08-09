@@ -1,21 +1,20 @@
-# Laravel Package Template
-[![tests](https://github.com/michael-rubel/laravel-package-template/actions/workflows/tests.yml/badge.svg)](https://github.com/michael-rubel/laravel-package-template/actions/workflows/tests.yml)
-[![infection](https://github.com/michael-rubel/laravel-package-template/actions/workflows/infection.yml/badge.svg)](https://github.com/michael-rubel/laravel-package-template/actions/workflows/infection.yml)
-[![backward-compat](https://github.com/michael-rubel/laravel-package-template/actions/workflows/backward-compat.yml/badge.svg)](https://github.com/michael-rubel/laravel-package-template/actions/workflows/backward-compat.yml)
-[![phpstan](https://github.com/michael-rubel/laravel-package-template/actions/workflows/phpstan.yml/badge.svg)](https://github.com/michael-rubel/laravel-package-template/actions/workflows/phpstan.yml)
+# Artisan Release Command
+[![tests](https://github.com/michael-rubel/artisan-release-command/actions/workflows/tests.yml/badge.svg)](https://github.com/michael-rubel/artisan-release-command/actions/workflows/tests.yml)
+[![infection](https://github.com/michael-rubel/artisan-release-command/actions/workflows/infection.yml/badge.svg)](https://github.com/michael-rubel/artisan-release-command/actions/workflows/infection.yml)
+[![backward-compat](https://github.com/michael-rubel/artisan-release-command/actions/workflows/backward-compat.yml/badge.svg)](https://github.com/michael-rubel/artisan-release-command/actions/workflows/backward-compat.yml)
+[![phpstan](https://github.com/michael-rubel/artisan-release-command/actions/workflows/phpstan.yml/badge.svg)](https://github.com/michael-rubel/artisan-release-command/actions/workflows/phpstan.yml)
 
-It's a ready-to-use template for Laravel packages.
+Artisan command to create a release.
 
-### What's inside
-- Skeleton with Service Provider and configuration file
-- `Laravel Package Tools` by Spatie for easier package configuration
-- Ready-to-use GitHub Action scripts for testing & code quality checks
+### Prerequisites
 
-Fulfill or change it the way you like.
+- `git`
+- GitHub CLI
+- Access to a version file (Linux permissions).
 
 ---
 
-The package requires PHP `8.x` and Laravel `9.x`.
+The package requires PHP `8.1` or higher and Laravel `10` or higher.
 
 ## #StandWithUkraine
 [![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
@@ -23,17 +22,32 @@ The package requires PHP `8.x` and Laravel `9.x`.
 ## Installation
 Install the package using composer:
 ```bash
-composer require michael-rubel/laravel-package-template
+composer require michael-rubel/artisan-release-command
 ```
 
 ## Usage
+The command will bump version based on the [SemVer 2.0](https://semver.org/) type you'll provide to the command:
+
 ```php
-// Your description.
+php artisan release {type}
 ```
 
-Publish the config:
+It will pick the latest release you have in the versioning file and bump it a step further.
+
+### Examples
+```php
+php artisan release major
+```
+```php
+php artisan release minor
+```
+```php
+php artisan release patch
+```
+
+Publish the config if you need to customize the command:
 ```bash
-php artisan vendor:publish --tag="package-template-config"
+php artisan vendor:publish --tag="artisan-release-config"
 ```
 
 ## Testing

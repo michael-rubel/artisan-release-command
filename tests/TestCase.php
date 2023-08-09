@@ -1,8 +1,8 @@
 <?php
 
-namespace MichaelRubel\PackageTemplate\Tests;
+namespace MichaelRubel\ArtisanRelease\Tests;
 
-use MichaelRubel\PackageTemplate\TemplateServiceProvider;
+use MichaelRubel\ArtisanRelease\ArtisanReleaseServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -10,7 +10,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
-            TemplateServiceProvider::class,
+            ArtisanReleaseServiceProvider::class,
         ];
     }
 

@@ -1,9 +1,9 @@
 .idea
 .php_cs
 .php_cs.cache
+.phpunit.cache
 .phpunit.result.cache
 build
-composer.lock
 coverage
 phpunit.xml
 psalm.xml
