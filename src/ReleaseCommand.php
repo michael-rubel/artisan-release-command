@@ -40,9 +40,6 @@ class ReleaseCommand extends Command
             return Command::INVALID;
         }
 
-        // Start the process.
-        $this->components->warn('Starting the release process...');
-
         // Determine the branch we want to work on.
         $branch = config('artisan-release.branch', default: 'main');
 
