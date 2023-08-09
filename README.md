@@ -22,7 +22,7 @@ The package requires PHP `8.1` or higher and Laravel `10.8` or higher.
 ## Installation
 Install the package using composer:
 ```bash
-composer require michael-rubel/artisan-release-command
+composer require michael-rubel/artisan-release-command --dev
 ```
 
 Publish the config if you need to customize the command:
