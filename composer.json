@@ -1,6 +1,6 @@
 {
     "name": "michael-rubel/artisan-release-command",
-    "description": "Laravel Artisan command to create a release.",
+    "description": "Artisan command to create a GitHub release of your code.",
     "keywords": [
         "laravel",
         "artisan",
