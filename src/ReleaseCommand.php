@@ -15,7 +15,7 @@ class ReleaseCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'release {type=patch : major, minor, or patch}';
+    protected $signature = 'release {type=patch : major, minor, or patch} {--beta}';
 
     /**
      * The console command description.
@@ -75,14 +75,18 @@ class ReleaseCommand extends Command
 
         $newVersion = "$major.$minor.$patch";
 
+        if ($this->option('beta')) {
+            $newVersion = $newVersion . '-beta';
+        }
+
         // Update version constant in the version file.
         $versionFilePath = config('artisan-release.version_file', default: app_path('Service.php'));
 
         $versionFileContent = File::get($versionFilePath);
 
         $updatedVersionFileContent = preg_replace(
-            pattern: "/const VERSION = '[0-9]+\.[0-9]+\.[0-9]+';/",
-            replacement: "const VERSION = '$newVersion';",
+            pattern: "/VERSION = '[0-9]+\.[0-9]+\.[0-9]+(-beta)?';/",
+            replacement: "VERSION = '$newVersion';",
             subject: $versionFileContent,
         ) ?? $versionFileContent;
 

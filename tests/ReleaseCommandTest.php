@@ -56,6 +56,39 @@ class ReleaseCommandTest extends TestCase
         $this->validateAndRevertVersionFile('0.0.3');
     }
 
+    public function testCanPublishMajorBetaRelease()
+    {
+        Process::fake();
+
+        $this->artisan(ReleaseCommand::class, ['type' => 'major', '--beta' => true])
+            ->assertSuccessful()
+            ->expectsOutputToContain('Successfully released the v1.0.0-beta version of the app.');
+
+        $this->validateAndRevertVersionFile('1.0.0-beta');
+    }
+
+    public function testCanPublishMinorBetaRelease()
+    {
+        Process::fake();
+
+        $this->artisan(ReleaseCommand::class, ['type' => 'minor', '--beta' => true])
+            ->assertSuccessful()
+            ->expectsOutputToContain('Successfully released the v0.1.0-beta version of the app.');
+
+        $this->validateAndRevertVersionFile('0.1.0-beta');
+    }
+
+    public function testCanPublishPatchBetaRelease()
+    {
+        Process::fake();
+
+        $this->artisan(ReleaseCommand::class, ['type' => 'patch', '--beta' => true])
+            ->assertSuccessful()
+            ->expectsOutputToContain('Successfully released the v0.0.3-beta version of the app.');
+
+        $this->validateAndRevertVersionFile('0.0.3-beta');
+    }
+
     public function testFailedGitSwitchCommand()
     {
         Process::fake([
@@ -173,8 +206,8 @@ class ReleaseCommandTest extends TestCase
         $this->assertStringContainsString($wantedVersion, $this->versionFile);
 
         $updatedVersionFileContent = preg_replace(
-            pattern: "/const VERSION = '[0-9]+\.[0-9]+\.[0-9]+';/",
-            replacement: "const VERSION = '0.0.2';",
+            pattern: "/VERSION = '[0-9]+\.[0-9]+\.[0-9]+(-beta)?';/",
+            replacement: "VERSION = '0.0.2';",
             subject: $this->versionFile,
         );
 
