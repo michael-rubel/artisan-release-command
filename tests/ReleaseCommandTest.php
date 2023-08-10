@@ -32,6 +32,8 @@ class ReleaseCommandTest extends TestCase
             ->expectsOutputToContain('Successfully released the v1.0.0 version of the app.');
 
         $this->validateAndRevertVersionFile('1.0.0');
+
+        Process::assertRan("gh release create 1.0.0 --title 'v1.0.0' --generate-notes");
     }
 
     public function testCanPublishMinorRelease()
@@ -43,6 +45,8 @@ class ReleaseCommandTest extends TestCase
             ->expectsOutputToContain('Successfully released the v0.1.0 version of the app.');
 
         $this->validateAndRevertVersionFile('0.1.0');
+
+        Process::assertRan("gh release create 0.1.0 --title 'v0.1.0' --generate-notes");
     }
 
     public function testCanPublishPatchRelease()
@@ -54,6 +58,8 @@ class ReleaseCommandTest extends TestCase
             ->expectsOutputToContain('Successfully released the v0.0.3 version of the app.');
 
         $this->validateAndRevertVersionFile('0.0.3');
+
+        Process::assertRan("gh release create 0.0.3 --title 'v0.0.3' --generate-notes");
     }
 
     public function testCanPublishMajorBetaRelease()
@@ -65,6 +71,8 @@ class ReleaseCommandTest extends TestCase
             ->expectsOutputToContain('Successfully released the v1.0.0-beta version of the app.');
 
         $this->validateAndRevertVersionFile('1.0.0-beta');
+
+        Process::assertRan("gh release create 1.0.0-beta --title 'v1.0.0-beta' --generate-notes --prerelease");
     }
 
     public function testCanPublishMinorBetaRelease()
@@ -76,6 +84,8 @@ class ReleaseCommandTest extends TestCase
             ->expectsOutputToContain('Successfully released the v0.1.0-beta version of the app.');
 
         $this->validateAndRevertVersionFile('0.1.0-beta');
+
+        Process::assertRan("gh release create 0.1.0-beta --title 'v0.1.0-beta' --generate-notes --prerelease");
     }
 
     public function testCanPublishPatchBetaRelease()
@@ -87,6 +97,8 @@ class ReleaseCommandTest extends TestCase
             ->expectsOutputToContain('Successfully released the v0.0.3-beta version of the app.');
 
         $this->validateAndRevertVersionFile('0.0.3-beta');
+
+        Process::assertRan("gh release create 0.0.3-beta --title 'v0.0.3-beta' --generate-notes --prerelease");
     }
 
     public function testFailedGitSwitchCommand()

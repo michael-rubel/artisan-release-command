@@ -107,7 +107,13 @@ class ReleaseCommand extends Command
         }
 
         // Create a release.
-        $gh = Process::run("gh release create $newVersion --title 'v$newVersion' --generate-notes");
+        $releaseCommand = "gh release create $newVersion --title 'v$newVersion' --generate-notes";
+
+        if ($this->option('beta')) {
+            $releaseCommand .= ' --prerelease';
+        }
+
+        $gh = Process::run($releaseCommand);
 
         if ($gh->failed()) {
             $this->components->error('Unable to create a release using GitHub CLI: ' . $gh->errorOutput());
