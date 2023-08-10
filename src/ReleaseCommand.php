@@ -57,8 +57,9 @@ class ReleaseCommand extends Command
 
         // Create a SemVer 2.0 version.
         $versionClass = config('artisan-release.version_class', default: 'App\Service');
+        $versionConst = config('artisan-release.version_const', default: 'VERSION');
 
-        $currentVersion = $versionClass::VERSION;
+        $currentVersion = constant("$versionClass::$versionConst");
 
         [$major, $minor, $patch] = explode('.', $currentVersion);
 
@@ -85,8 +86,8 @@ class ReleaseCommand extends Command
         $versionFileContent = File::get($versionFilePath);
 
         $updatedVersionFileContent = preg_replace(
-            pattern: "/VERSION = '[0-9]+\.[0-9]+\.[0-9]+(-beta)?';/",
-            replacement: "VERSION = '$newVersion';",
+            pattern: "/$versionConst = '[0-9]+\.[0-9]+\.[0-9]+(-beta)?';/",
+            replacement: "$versionConst = '$newVersion';",
             subject: $versionFileContent,
         ) ?? $versionFileContent;
 
