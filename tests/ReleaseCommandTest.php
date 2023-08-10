@@ -199,6 +199,21 @@ class ReleaseCommandTest extends TestCase
             ->expectsOutputToContain('Invalid version. Allowed types: major, minor, patch');
     }
 
+    public function testCanUseDifferentVersionConstName()
+    {
+        Process::fake();
+
+        config([
+            'artisan-release.version_const' => 'APP_VERSION',
+        ]);
+
+        $this->artisan(ReleaseCommand::class, ['type' => 'minor'])
+            ->assertSuccessful()
+            ->expectsOutputToContain('Successfully released the v0.1.0 version of the app.');
+
+        $this->validateAndRevertVersionFile('0.1.0');
+    }
+
     protected function validateAndRevertVersionFile($wantedVersion = '0.0.3')
     {
         $this->versionFile = File::get($this->versionFilePath);
