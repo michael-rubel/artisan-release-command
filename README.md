@@ -63,7 +63,7 @@ abstract class Service
 }
 ```
 
-Note: at the moment, the version file should always contain `VERSION` constant for the command to work.
+Note: the version file should always contain a `VERSION` constant for the command to work. You can configure the constant name in the configuration file if you want to name it for example "APP_VERSION"
 
 The command will bump version based on the [SemVer 2.0](https://semver.org/) type you'll provide.
 
