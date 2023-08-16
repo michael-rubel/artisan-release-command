@@ -82,7 +82,17 @@ Available options: `major`, `minor`, `patch`
 
 Default value: `patch`
 
-After the version pushed, it will create a release using GitHub CLI and provide auto-generated notes.
+After the version is pushed, it will create a release using GitHub CLI and provide auto-generated notes.
+
+### Beta release
+
+Creates the pre-release based on the given version type:
+
+```php
+php artisan release major --beta
+```
+
+If you had 0.0.1 in your version file, after this command it will be 1.0.0-beta, and the release will be marked as "pre-release" on GitHub (deployment won't be triggered if you use `[0-9]+.[0-9]+.[0-9]+` pattern in GitHub Actions).
 
 ## Testing
 ```bash
