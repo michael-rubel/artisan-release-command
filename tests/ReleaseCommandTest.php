@@ -17,7 +17,6 @@ class ReleaseCommandTest extends TestCase
         $this->versionFilePath = __DIR__ . '/Fakes/Service.php';
 
         config([
-            'artisan-release.branch' => 'main',
             'artisan-release.version_class' => 'MichaelRubel\ArtisanRelease\Tests\Fakes\Service',
             'artisan-release.version_file' => $this->versionFilePath,
         ]);
@@ -29,7 +28,7 @@ class ReleaseCommandTest extends TestCase
 
         $this->artisan(ReleaseCommand::class, ['type' => 'major'])
             ->assertSuccessful()
-            ->expectsOutputToContain('Successfully released the v1.0.0 version of the app.');
+            ->expectsOutputToContain('Successfully released: v1.0.0 on branch main.');
 
         $this->validateAndRevertVersionFile('1.0.0');
 
@@ -42,7 +41,7 @@ class ReleaseCommandTest extends TestCase
 
         $this->artisan(ReleaseCommand::class, ['type' => 'minor'])
             ->assertSuccessful()
-            ->expectsOutputToContain('Successfully released the v0.1.0 version of the app.');
+            ->expectsOutputToContain('Successfully released: v0.1.0 on branch main.');
 
         $this->validateAndRevertVersionFile('0.1.0');
 
@@ -55,7 +54,7 @@ class ReleaseCommandTest extends TestCase
 
         $this->artisan(ReleaseCommand::class, ['type' => 'patch'])
             ->assertSuccessful()
-            ->expectsOutputToContain('Successfully released the v0.0.3 version of the app.');
+            ->expectsOutputToContain('Successfully released: v0.0.3 on branch main.');
 
         $this->validateAndRevertVersionFile('0.0.3');
 
@@ -68,7 +67,7 @@ class ReleaseCommandTest extends TestCase
 
         $this->artisan(ReleaseCommand::class, ['type' => 'major', '--beta' => true])
             ->assertSuccessful()
-            ->expectsOutputToContain('Successfully released the v1.0.0-beta version of the app.');
+            ->expectsOutputToContain('Successfully released: v1.0.0-beta on branch main.');
 
         $this->validateAndRevertVersionFile('1.0.0-beta');
 
@@ -81,7 +80,7 @@ class ReleaseCommandTest extends TestCase
 
         $this->artisan(ReleaseCommand::class, ['type' => 'minor', '--beta' => true])
             ->assertSuccessful()
-            ->expectsOutputToContain('Successfully released the v0.1.0-beta version of the app.');
+            ->expectsOutputToContain('Successfully released: v0.1.0-beta on branch main.');
 
         $this->validateAndRevertVersionFile('0.1.0-beta');
 
@@ -94,7 +93,7 @@ class ReleaseCommandTest extends TestCase
 
         $this->artisan(ReleaseCommand::class, ['type' => 'patch', '--beta' => true])
             ->assertSuccessful()
-            ->expectsOutputToContain('Successfully released the v0.0.3-beta version of the app.');
+            ->expectsOutputToContain('Successfully released: v0.0.3-beta on branch main.');
 
         $this->validateAndRevertVersionFile('0.0.3-beta');
 
@@ -221,9 +220,31 @@ class ReleaseCommandTest extends TestCase
 
         $this->artisan(ReleaseCommand::class, ['type' => 'minor'])
             ->assertSuccessful()
-            ->expectsOutputToContain('Successfully released the v0.1.0 version of the app.');
+            ->expectsOutputToContain('Successfully released: v0.1.0 on branch main.');
 
         $this->validateAndRevertVersionFile('0.1.0');
+    }
+
+    public function testCanSpecifyBranchUsingOption()
+    {
+        Process::fake();
+
+        $this->artisan(ReleaseCommand::class, ['type' => 'major', '--branch' => 'master'])
+            ->assertSuccessful()
+            ->expectsOutputToContain('Successfully released: v1.0.0 on branch master.');
+
+        $this->validateAndRevertVersionFile('1.0.0');
+    }
+
+    public function testEmptyBranchOptionDefaultsToMain()
+    {
+        Process::fake();
+
+        $this->artisan(ReleaseCommand::class, ['type' => 'major', '--branch' => ''])
+            ->assertSuccessful()
+            ->expectsOutputToContain('Successfully released: v1.0.0 on branch main.');
+
+        $this->validateAndRevertVersionFile('1.0.0');
     }
 
     protected function validateAndRevertVersionFile($wantedVersion = '0.0.3')
