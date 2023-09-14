@@ -15,7 +15,7 @@ class ReleaseCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'release {type=patch : major, minor, or patch} {--beta}';
+    protected $signature = 'release {type=patch : major, minor, or patch} {--beta} {--branch=main}';
 
     /**
      * The console command description.
@@ -41,7 +41,7 @@ class ReleaseCommand extends Command
         }
 
         // Determine the branch we want to work on.
-        $branch = config('artisan-release.branch', default: 'main');
+        $branch = $this->option('branch') ?: 'main';
 
         // Switch to the branch.
         $git = Process::pipe([
@@ -122,7 +122,7 @@ class ReleaseCommand extends Command
         }
 
         // Finish the command.
-        $this->components->info("Successfully released the v$newVersion version of the app.");
+        $this->components->info("Successfully released: v$newVersion on branch $branch.");
 
         return Command::SUCCESS;
     }
