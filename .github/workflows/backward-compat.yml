@@ -21,9 +21,10 @@ jobs:
           php-version: "8.3"
 
       - name: "Install dependencies"
-        run: |
-            composer require "laravel/framework:10.*" "nesbot/carbon:^2.64.1" --dev --no-interaction --no-update
-            composer update --prefer-stable --prefer-dist --no-interaction
+        run: composer install
+
+      - name: "Install BC check"
+        run: composer require --dev roave/backward-compatibility-check
 
       - name: "Check for BC breaks"
-        run: "vendor/bin/roave-backward-compatibility-check --format=github-actions"
+        run: vendor/bin/roave-backward-compatibility-check --format=github-actions
